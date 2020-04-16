@@ -12,27 +12,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    TextView txtTG;
-    SimpleDateFormat spF = new SimpleDateFormat("HH:mm:ss");
-    String date = spF.format(new Date());
-    String dateluu="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TextView txtTG,txtTGduocluu;
+        SimpleDateFormat spF = new SimpleDateFormat("HH:mm:ss");
+        String date = spF.format(new Date());
+        String dateluu="";
         Log.d("LifeCycle","onCreate Called");
         Toast.makeText(getApplicationContext(),"onCreate Called",Toast.LENGTH_SHORT).show();
-        // Lấy thời gian đã lưu, nếu chưa có thì khởi tạo cái mới ( trả lời câu 6 )
+        txtTG = findViewById(R.id.txtTG);
+        txtTG.setText(date);
+        // Lấy thời gian đã lưu ( trả lời câu 6 )
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         dateluu = preferences.getString("dateluu","");
-        if(dateluu ==""){
-            txtTG = findViewById(R.id.txtTG);
-            txtTG.setText(date);
-        }
-        else {
-            txtTG = findViewById(R.id.txtTG);
-            txtTG.setText(dateluu);
-        }
+        txtTGduocluu = findViewById(R.id.txtTGduocluu);
+        txtTGduocluu.setText(dateluu);
 
     }
 
@@ -56,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d("LifeCycle","onResume Called");
         Toast.makeText(getApplicationContext(),"onResume Called",Toast.LENGTH_SHORT).show();
+        TextView txtTG;
+        SimpleDateFormat spF = new SimpleDateFormat("HH:mm:ss");
+        String date = spF.format(new Date());
+        txtTG = findViewById(R.id.txtTG);
+        txtTG.setText(date);
 
     }
     @Override
