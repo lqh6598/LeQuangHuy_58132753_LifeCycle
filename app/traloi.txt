@@ -1,1 +1,9 @@
-test
+- Câu 4
++ Khi nhấn nút back: onPause --> onStop --> onDestroy
++ Khi mở lại ứng dụng: onCreate --> onStart --> onResume
+- Câu 5
++ Khi nhấn nút home: onPause --> onStop
++ Khi mở lại ứng dụng: onRestart --> onStart --> onResume
+- Câu 6
++ Nên được lưu trong phương thức onPause:
+Vì onPause luôn được gọi (khi đang sử dụng và tạm dừng, dừng, hủy, kết thúc activity), ngay cả khi kích hoạt lệnh gọi (với kết thúc ()).

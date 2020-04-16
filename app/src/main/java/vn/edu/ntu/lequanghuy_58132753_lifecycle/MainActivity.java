@@ -2,6 +2,7 @@ package vn.edu.ntu.lequanghuy_58132753_lifecycle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -12,16 +13,27 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     TextView txtTG;
+    SimpleDateFormat spF = new SimpleDateFormat("HH:mm:ss");
+    String date = spF.format(new Date());
+    String dateluu="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("LifeCycle","onCreate Called");
         Toast.makeText(getApplicationContext(),"onCreate Called",Toast.LENGTH_SHORT).show();
-        txtTG = findViewById(R.id.txtTG);
-        SimpleDateFormat spF = new SimpleDateFormat("HH:mm:ss");
-        String date = spF.format(new Date());
-        txtTG.setText(date);
+        // Lấy thời gian đã lưu, nếu chưa có thì khởi tạo cái mới ( trả lời câu 6 )
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        dateluu = preferences.getString("dateluu","");
+        if(dateluu ==""){
+            txtTG = findViewById(R.id.txtTG);
+            txtTG.setText(date);
+        }
+        else {
+            txtTG = findViewById(R.id.txtTG);
+            txtTG.setText(dateluu);
+        }
+
     }
 
     @Override
@@ -51,7 +63,13 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         Log.d("LifeCycle","onPause Called");
         Toast.makeText(getApplicationContext(),"onPause Called",Toast.LENGTH_SHORT).show();
-
+        // Lưu trạng thái thời gian không thay đổi ( trả lời câu 6 )
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        TextView txtTGluu = findViewById(R.id.txtTG);
+        String dateluutam = txtTGluu.getText().toString();
+        editor.putString("dateluu",dateluutam);
+        editor.commit();
     }
     @Override
     protected void onStop(){
